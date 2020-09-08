@@ -19,7 +19,8 @@ public:
 	void Fly() override
 	{
 		m_amountSortie++;
-		cout << "I'm flying with wings!!    "<< m_amountSortie << endl;
+		cout << "I'm flying with wings!!!" << endl;
+		cout << "Amount sortie: " << m_amountSortie << endl;
 	}
 
 private: 
