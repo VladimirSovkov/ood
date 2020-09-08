@@ -25,7 +25,6 @@ public:
 
 private: 
 	int m_amountSortie = 0;
-	
 };
 
 class FlyNoWay : public IFlyBehavior
@@ -67,31 +66,31 @@ class IDanceBehavior
 {
 public:
 	virtual ~IDanceBehavior() {};
-	virtual void Dance() = 0;
+	virtual void Dance(int speed) = 0;
 };
 
 class DanceWaltz : public IDanceBehavior
 {
 public:
-	void Dance() override
+	void Dance(int speed) override
 	{
-		cout << "I am dancing waltz" << endl;
+		cout << "I am dancing waltz, with speed = "<< speed << endl;
 	}
 };
 
 class DanceMinuet : public IDanceBehavior
 {
 public:
-	void Dance() override
+	void Dance(int speed) override
 	{
-		cout << "I am dancing waltz minuet" << endl;
+		cout << "I am dancing waltz minuet, with speed = " << speed << endl;
 	}
 };
 
 class NoDance : public IDanceBehavior
 {
 public:
-	void Dance() override {}
+	void Dance(int speed) override {}
 };
 
 class Duck
@@ -119,9 +118,9 @@ public:
 	{
 		m_flyBehavior->Fly();
 	}
-	virtual void Dance()
+	void Dance(int speed)
 	{
-		m_danceBehavior->Dance();
+		m_danceBehavior->Dance(speed);
 	}
 	void SetFlyBehavior(unique_ptr<IFlyBehavior>&& flyBehavior)
 	{
@@ -212,7 +211,7 @@ void PlayWithDuck(Duck& duck)
 	DrawDuck(duck);
 	duck.Quack();
 	duck.Fly();
-	duck.Dance();
+	duck.Dance(5);
 	cout << endl;
 }
 
