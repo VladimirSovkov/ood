@@ -5,11 +5,18 @@
 #include <functional>
 
 using namespace std;
-using Strategy = function<void()>;
+using FlyStrategy = function<void()>;
+using QuackStrategy = function<void()>;
+using DanceStrategy = function<void(int speed)>;
 
-void FlyWithWings()
+function<void()> FlyWithWings()
 {
-	cout << "I'm flying with wings!!" << endl;
+	int amountSortie = 0;
+	cout << "I'm flying with wings!!!" << endl;
+	return [amountSortie]() mutable {
+		++amountSortie;
+		cout << "Amount sortie: " << amountSortie << endl;
+	};
 };
 
 void FlyNoWay (){};
@@ -26,24 +33,24 @@ void SqueakBehavior()
 
 void MuteQuackBehavior() {};
 
-void DanceWaltz()
+void DanceWaltz(int speed)
 {
-	cout << "I am dancing waltz" << endl;
+	cout << "I am dancing waltz, with speed = " << speed << endl;
 };
 
-void DanceMinuet()
+void DanceMinuet(int speed)
 {
-	cout << "I am dancing waltz minuet" << endl;
+	cout << "I am dancing waltz minuet, with speed = " << speed << endl;
 };
 
-void NoDance() {};
+void NoDance(int speed) {};
 
 class Duck
 {
 public:
-	Duck(Strategy&& flyBehavior,
-		Strategy&& quackBehavior,
-		Strategy&& danceBehavior)
+	Duck(FlyStrategy&& flyBehavior,
+		QuackStrategy&& quackBehavior,
+		DanceStrategy&& danceBehavior)
 		: m_quackBehavior(move(quackBehavior)),
 		m_danceBehavior(move(danceBehavior))
 	{
@@ -63,11 +70,11 @@ public:
 	{
 		m_flyBehavior();
 	}
-	virtual void Dance()
+	void Dance(int speed)
 	{
-		m_danceBehavior();
+		m_danceBehavior(speed);
 	}
-	void SetFlyBehavior(Strategy&& flyBehavior)
+	void SetFlyBehavior(FlyStrategy&& flyBehavior)
 	{
 		assert(flyBehavior);
 		m_flyBehavior = move(flyBehavior);
@@ -76,16 +83,16 @@ public:
 	virtual ~Duck() = default;
 
 private:
-	Strategy m_flyBehavior;
-	Strategy m_quackBehavior;
-	Strategy m_danceBehavior;
+	FlyStrategy m_flyBehavior;
+	QuackStrategy m_quackBehavior;
+	DanceStrategy m_danceBehavior;
 };
 
 class MallardDuck : public Duck
 {
 public:
 	MallardDuck()
-		: Duck(FlyWithWings, QuackBehavior, DanceWaltz)
+		: Duck(FlyWithWings(), QuackBehavior, DanceWaltz)
 	{
 	}
 
@@ -99,7 +106,7 @@ class RedheadDuck : public Duck
 {
 public:
 	RedheadDuck()
-		: Duck(FlyWithWings, QuackBehavior, DanceMinuet)
+		: Duck(FlyWithWings(), QuackBehavior, DanceMinuet)
 	{
 	}
 	void Display() const override
@@ -156,7 +163,7 @@ void PlayWithDuck(Duck& duck)
 	DrawDuck(duck);
 	duck.Quack();
 	duck.Fly();
-	duck.Dance();
+	duck.Dance(5);
 	cout << endl;
 }
 
