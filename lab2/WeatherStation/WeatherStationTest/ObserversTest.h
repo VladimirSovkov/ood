@@ -1,6 +1,6 @@
 #pragma once
-#include "../WeatherStation/WeatherStation/Observer.h"
-#include "../WeatherStation/WeatherStation/WeatherData.h"
+#include "../WeatherStation/Observer.h"
+#include "../WeatherStation/WeatherData.h"
 
 typedef IObservable<SWeatherInfo> ObserverType;
 

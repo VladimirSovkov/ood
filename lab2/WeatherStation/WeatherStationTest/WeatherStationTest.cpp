@@ -1,5 +1,5 @@
 ﻿#define CATCH_CONFIG_MAIN
-#include "../../catch2/catch.hpp"
+#include "../../../catch2/catch.hpp"
 #include "ObserversTest.h"
 
 TEST_CASE("removing yourself from the observer list in the Update method")
