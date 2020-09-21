@@ -74,8 +74,8 @@ private:
 		m_pressureStatistics.Update(data.pressure);
 
 		std::cout << "Temperature: " << m_temperatureStatistics.ToString() << std::endl;
-		std::cout << "Humidity" << m_humidityStatistics.ToString()  << std::endl;
-		std::cout << "Pressure" << m_pressureStatistics.ToString() << std::endl;
+		std::cout << "Humidity: " << m_humidityStatistics.ToString()  << std::endl;
+		std::cout << "Pressure: " << m_pressureStatistics.ToString() << std::endl;
 	} 
 
 	Statistics m_temperatureStatistics;
