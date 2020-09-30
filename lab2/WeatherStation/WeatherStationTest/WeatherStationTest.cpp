@@ -12,7 +12,7 @@ TEST_CASE("removing yourself from the observer list in the Update method")
 	wd.RemoveObserver(removeDisplay);
 }
 
-TEST_CASE("priority notification to observers")
+TEST_CASE("notification and receipt of data from observers in priority")
 {
 	CWeatherData wd;
 	std::stringstream stringStream;
