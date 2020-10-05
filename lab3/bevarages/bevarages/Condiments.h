@@ -100,7 +100,7 @@ protected:
 			+ " ice cubes x " + std::to_string(m_quantity);
 	}
 private:
-	unsigned m_quantity;
+	double m_quantity;
 	IceCubeType m_type;
 };
 
@@ -220,7 +220,7 @@ private:
 	size_t m_quantity;
 };
 
-enum LiquorType
+enum class LiquorType
 {
 	Nuts,
 	Ñhocolate

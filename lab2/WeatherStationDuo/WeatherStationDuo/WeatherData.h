@@ -5,17 +5,30 @@
 #include <climits>
 #include <string>
 #include "Observer.h"
+#include <iostream>
+
+enum SensorType
+{
+	Internal,
+	External
+};
 
 struct SWeatherInfo
 {
 	double temperature = 0;
 	double humidity = 0;
 	double pressure = 0;
+	SensorType sensorType;
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>
 {
 public:
+	CWeatherData(SensorType type)
+		: m_type(type)
+	{
+	}
+
 	// Температура в градусах Цельсия
 	double GetTemperature()const
 	{
@@ -52,36 +65,32 @@ protected:
 		info.temperature = GetTemperature();
 		info.humidity = GetHumidity();
 		info.pressure = GetPressure();
+		info.sensorType = m_type;
 		return info;
 	}
 private:
 	double m_temperature = 0.0;
 	double m_humidity = 0.0;
 	double m_pressure = 760.0;
+	SensorType m_type;
 };
 
 class CDisplay : public IObserver<SWeatherInfo>
 {
-public:
-	CDisplay(CWeatherData const& indicatorInside, CWeatherData const& indicatorOutside)
-		:m_indicatorInside(indicatorInside),
-		m_indicatorOutside(indicatorOutside)
-	{
-	}
 private:
 	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
 		Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
 		остается публичным
 	*/
-	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo> const& observable) override
+	void Update(SWeatherInfo const& data) override
 	{
-		if (std::addressof(m_indicatorInside) == std::addressof(observable))
+		if (data.sensorType == SensorType::Internal)
 		{
 			std::cout << "Indoors:" << std::endl;
 		}
-		else if(std::addressof(m_indicatorOutside) == std::addressof(observable))
+		else if (data.sensorType == SensorType::External)
 		{
-			std::cout << "outside:" << std::endl;
+			std::cout << "Outside:" << std::endl;
 		}
 
 		std::cout << "Current Temp " << data.temperature << std::endl;
@@ -89,9 +98,6 @@ private:
 		std::cout << "Current Pressure " << data.pressure << std::endl;
 		std::cout << "----------------" << std::endl;
 	}
-
-	CWeatherData const& m_indicatorInside;
-	CWeatherData const& m_indicatorOutside;
 };
 
 class Statistics
@@ -151,9 +157,7 @@ private:
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 public: 
-	CStatsDisplay(CWeatherData const& indicatorInside, CWeatherData const& indicatorOutside)
-		:m_indicatorInside(indicatorInside),
-			m_indicatorOutside(indicatorOutside)
+	CStatsDisplay()
 	{
 	}
 
@@ -162,15 +166,15 @@ private:
 	Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
 	остается публичным
 	*/
-	void Update(SWeatherInfo const& data, const IObservable<SWeatherInfo>& observable) override
+	void Update(SWeatherInfo const& data) override
 	{
-		if (std::addressof(m_indicatorInside) == std::addressof(observable))
+		if (data.sensorType == SensorType::Internal)
 		{
 			std::cout << "Indoors:" << std::endl;
 			m_weatherStatisticsInside.Update(data);
 			m_weatherStatisticsInside.PrintStatistics();
 			}
-		else if (std::addressof(m_indicatorOutside) == std::addressof(observable))
+		else if (data.sensorType == SensorType::External)
 		{
 			std::cout << "Outside:" << std::endl;
 			m_weatherStatisticsOutside.Update(data);
@@ -180,8 +184,5 @@ private:
 
 	WeatherDataStatistics m_weatherStatisticsInside;
 	WeatherDataStatistics m_weatherStatisticsOutside;
-
-	CWeatherData const& m_indicatorInside;
-	CWeatherData const& m_indicatorOutside;
 };
 

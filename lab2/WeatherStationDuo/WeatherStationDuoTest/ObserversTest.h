@@ -12,7 +12,7 @@ public :
 		m_observer = &observer;
 	}
 private:
-	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo> const& observable) override
+	void Update(SWeatherInfo const& data) override
 	{
 		m_observer->RemoveObserver(*this);
 	}
@@ -30,7 +30,7 @@ public:
 	}
 
 private:
-	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo> const& observable) override
+	void Update(SWeatherInfo const& data) override
 	{
 		m_outStream << m_data;
 	}
@@ -42,27 +42,23 @@ private:
 class ObserverWithTypeSensorOutput : public IObserver<SWeatherInfo>
 {
 public:
-	ObserverWithTypeSensorOutput(CWeatherData const& indicatorInside, CWeatherData const& indicatorOutside, std::ostream& outStream)
-		:m_outStream(outStream),
-		m_indicatorInside(indicatorInside),
-		m_indicatorOutside(indicatorOutside)
+	ObserverWithTypeSensorOutput(std::ostream& outStream)
+		:m_outStream(outStream)
 	{
 	}
 
 private:
-	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo> const& observable) override
+	void Update(SWeatherInfo const& data) override
 	{
-		if (std::addressof(m_indicatorInside) == std::addressof(observable))
+		if (data.sensorType == SensorType::Internal)
 		{
 			m_outStream << "Indoors ";
 		}
-		else if (std::addressof(m_indicatorOutside) == std::addressof(observable))
+		else if (data.sensorType == SensorType::External)
 		{
 			m_outStream << "Outside ";
 		}
 	}
 
 	std::ostream& m_outStream;
-	CWeatherData const& m_indicatorInside;
-	CWeatherData const& m_indicatorOutside;
 };

@@ -14,7 +14,7 @@ enum class Event
 	Temperature,
 	Pressure,
 	WindSpeed,
-	WindDirection
+	WindDirection,
 };
 
 struct SWindInfo
@@ -31,21 +31,35 @@ struct SWeatherInfo
 	SWindInfo wind;
 };
 
-class CDisplay : public IObserver<SWeatherInfo>
+class CDisplay : public IObserver<SWeatherInfo, Event>
 {
 private:
 	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
 		Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
 		остается публичным
 	*/
-	void Update(SWeatherInfo const& data) override
+	void Update(SWeatherInfo const& data, Event changedEvent) override
 	{
-		std::cout << "Current Temp " << data.temperature << std::endl;
-		std::cout << "Current Hum " << data.humidity << std::endl;
-		std::cout << "Current Pressure " << data.pressure << std::endl;
-		std::cout << "Current wind speed " << data.wind.speed << std::endl;
-		std::cout << "Current wind direction " << data.wind.direction << std::endl;
-		std::cout << "----------------" << std::endl;
+		switch (changedEvent)
+		{
+		case Event::Temperature:
+			std::cout << "Current Temp " << data.temperature << std::endl;
+			break;
+		case Event::Humidity:
+			std::cout << "Current Hum " << data.humidity << std::endl;
+			break;
+		case Event::Pressure:
+			std::cout << "Current Pressure " << data.pressure << std::endl;
+			break;
+		case Event::WindSpeed:
+			std::cout << "Current wind speed " << data.wind.speed << std::endl;
+			break;
+		case Event::WindDirection:
+			std::cout << "Current wind direction " << data.wind.direction << std::endl;
+			break;
+		default:
+			break;
+		}
 	}
 };
 
@@ -102,28 +116,40 @@ private:
 	unsigned m_countAcc = 0;
 };
 
-class CStatsDisplay : public IObserver<SWeatherInfo>
+class CStatsDisplay : public IObserver<SWeatherInfo, Event>
 {
 private:
 	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
 	Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
 	остается публичным
 	*/
-	void Update(SWeatherInfo const& data) override
+	void Update(SWeatherInfo const& data, Event changedEvent) override
 	{
-		m_temperatureStatistics.Update(data.temperature);
-		m_humidityStatistics.Update(data.humidity);
-		m_pressureStatistics.Update(data.pressure);
-		m_windSpeedStatistics.Update(data.wind.speed);
-		m_windDirectionStatistics.Update(data.wind.direction);
-
-		std::cout << "Temperature: " << m_temperatureStatistics.ToString() << std::endl;
-		std::cout << "Humidity: " << m_humidityStatistics.ToString()  << std::endl;
-		std::cout << "Pressure: " << m_pressureStatistics.ToString() << std::endl;
-		std::cout << "Wind: " << std::endl;
-		std::cout << "\tSpeed: " << m_windSpeedStatistics.ToString() << std::endl;
-		std::cout << "\tDirection: " << m_windDirectionStatistics.ToString() << std::endl;
-		std::cout << "----------------" << std::endl;
+		switch (changedEvent)
+		{
+		case Event::Temperature:
+			m_temperatureStatistics.Update(data.temperature);
+			std::cout << "Temperature: " << m_temperatureStatistics.ToString() << std::endl;
+			break;
+		case Event::Humidity:
+			m_humidityStatistics.Update(data.humidity);
+			std::cout << "Humidity: " << m_humidityStatistics.ToString() << std::endl;
+			break;
+		case Event::Pressure:
+			m_pressureStatistics.Update(data.pressure);
+			std::cout << "Pressure: " << m_pressureStatistics.ToString() << std::endl;
+			break;
+		case Event::WindSpeed:
+			m_windSpeedStatistics.Update(data.wind.speed);
+			std::cout << "\tSpeed: " << m_windSpeedStatistics.ToString() << std::endl;
+			break;
+		case Event::WindDirection:
+			m_windDirectionStatistics.Update(data.wind.direction);
+			std::cout << "\tDirection: " << m_windDirectionStatistics.ToString() << std::endl;
+			break;
+		default:
+			break;
+		}
 	} 
 
 	Statistics m_temperatureStatistics;

@@ -176,7 +176,7 @@ void Demonstration()
 
 	//различные виды чая
 	{
-		auto blackTea = make_unique<CBlackTea>();
+		auto blackTea = make_unique<CTea>(TeaType::GreanTea);
 		cout << blackTea->GetDescription() << ", cost: " << blackTea->GetCost() << endl;
 	}
 

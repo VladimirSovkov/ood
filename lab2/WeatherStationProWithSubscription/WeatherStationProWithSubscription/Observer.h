@@ -9,11 +9,11 @@
 Параметром шаблона является тип аргумента,
 передаваемого Наблюдателю в метод Update
 */
-template <typename T>
+template <typename T, typename Event>
 class IObserver
 {
 public:
-	virtual void Update(T const& data) = 0;
+	virtual void Update(T const& data, Event changedEvent) = 0;
 	virtual ~IObserver() = default;
 };
 
@@ -26,11 +26,11 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(IObserver<T>& observer, unsigned int priority) = 0;
+	virtual void RegisterObserver(IObserver<T, Event>& observer, unsigned int priority) = 0;
 	virtual void NotifyObservers(std::set<Event> const& changedEvents) = 0;
-	virtual void RemoveObserver(IObserver<T>& observer) = 0;
-	virtual void AddEvent(IObserver<T>& observer, Event event) = 0;
-	virtual void DeleteEvent(IObserver<T>& observer, Event event) = 0;
+	virtual void RemoveObserver(IObserver<T, Event>& observer) = 0;
+	virtual void AddEvent(IObserver<T, Event>& observer, Event event) = 0;
+	virtual void DeleteEvent(IObserver<T, Event>& observer, Event event) = 0;
 };
 
 // Реализация интерфейса IObservable
@@ -38,7 +38,7 @@ template <class T, class Event>
 class CObservable : public IObservable<T, Event>
 {
 public:
-	typedef IObserver<T> ObserverType;
+	typedef IObserver<T, Event> ObserverType;
 
 	void RegisterObserver(ObserverType& observer, unsigned int priority) override
 	{
@@ -54,16 +54,15 @@ public:
 	void NotifyObservers(std::set<Event> const& changedEvents) override
 	{
 		T data = GetChangedData();
-		auto observersCopy = m_observers;
-		auto eventsCopy = m_events;
-		for (auto it = observersCopy.rbegin(); it != observersCopy.rend(); ++it)
+		for (auto it = m_observers.rbegin(); it != m_observers.rend(); ++it)
 		{
-			auto eventSet = eventsCopy[it->second];
-			bool  isSubscriber = std::any_of(changedEvents.begin(), changedEvents.end(), [&](auto event)
-				{return eventSet.find(event) != eventSet.end(); });
-			if (isSubscriber)
+			std::set<Event>eventSet = m_events[it->second];
+			for (Event item : eventSet)
 			{
-				it->second->Update(data);
+				if (changedEvents.find(item) != changedEvents.end())
+				{
+					it->second->Update(data, item);
+				}
 			}
 		}
 	}

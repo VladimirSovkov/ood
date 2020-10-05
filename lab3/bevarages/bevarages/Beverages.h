@@ -101,13 +101,37 @@ private:
 	double m_cost;
 };
 
+enum class TeaType
+{
+	GreanTea,
+	BlackTea,
+	WhiteTea,
+	YellowTea
+};
+
 // Чай
 class CTea : public CBeverage
 {
 public:
-	CTea(const std::string& description = "Tea")
-		:CBeverage(description)
-	{}
+	CTea(TeaType type = TeaType::BlackTea)
+		:CBeverage("Tea")
+	{
+		switch (type)
+		{
+		case TeaType::GreanTea: 
+			m_description = "Grean tea";
+			break;
+		case TeaType::WhiteTea:
+			m_description = "Black tea";
+			break;
+		case TeaType::YellowTea:
+			m_description = "White tea";
+			break;
+		default:
+			m_description = "Yellow tea";
+			break;
+		}
+	}
 
 	double GetCost() const override
 	{
@@ -115,63 +139,7 @@ public:
 	}
 };
 
-//зеленый чай
-class CGreenTea : public CTea
-{
-public:
-	CGreenTea()
-		:CTea("GreenTea")
-	{}
-
-	double GetCost() const override
-	{
-		return 30;
-	}
-};
-
-//черный чай 
-class CBlackTea : public CTea
-{
-public:
-	CBlackTea()
-		:CTea("Black tea")
-	{}
-
-	double GetCost() const override
-	{
-		return 30;
-	}
-};
-
-//белый чай 
-class CWhiteTea : public CTea
-{
-public:
-	CWhiteTea()
-		:CTea("White tea")
-	{}
-
-	double GetCost() const override
-	{
-		return 30;
-	}
-};
-
-//желтый чай
-class CYellowTea : public CTea
-{
-public:
-	CYellowTea()
-		:CTea("Yellow tea")
-	{}
-
-	double GetCost() const override
-	{
-		return 30;
-	}
-};
-
-enum MilkshakeType
+enum class MilkshakeType
 {
 	Small,
 	Medium,
@@ -187,11 +155,11 @@ public:
 	{
 		switch (type)
 		{
-		case Small:
+		case MilkshakeType::Small:
 			m_description = "Small milkshake";
 			m_cost = 50;
 			break;
-		case Large:
+		case MilkshakeType::Large:
 			m_description = "Large milkshake";
 			m_cost = 80;
 			break;
@@ -209,5 +177,4 @@ public:
 
 private: 
 	double m_cost;
-
 };

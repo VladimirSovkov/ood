@@ -3,12 +3,12 @@
 
 int main()
 {
-	CWeatherData wdInside;
-	CWeatherData wdOutside;
+	CWeatherData wdInside(SensorType::Internal);
+	CWeatherData wdOutside(SensorType::External);
 
-	CDisplay display(wdInside, wdOutside);
+	CDisplay display;
 	wdInside.RegisterObserver(display, 2);
-	CStatsDisplay statsDisplay(wdInside, wdOutside);
+	CStatsDisplay statsDisplay;
 	wdInside.RegisterObserver(statsDisplay, 1);
 	wdOutside.RegisterObserver(statsDisplay, 1);
 

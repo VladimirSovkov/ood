@@ -3,10 +3,10 @@
 #include "ObserversTest.h"
 TEST_CASE("display of indicators from two stations at once")
 {
-	CWeatherData wdInside;
-	CWeatherData wdOutside;
+	CWeatherData wdInside(SensorType::Internal);
+	CWeatherData wdOutside(SensorType::External);
 	std::stringstream stringStream;
-	ObserverWithTypeSensorOutput observer(wdInside, wdOutside, stringStream);
+	ObserverWithTypeSensorOutput observer(stringStream);
 	wdInside.RegisterObserver(observer, 1);
 	wdOutside.RegisterObserver(observer, 1);
 	wdInside.SetMeasurements(25, 0.7, 760);
@@ -18,7 +18,7 @@ TEST_CASE("display of indicators from two stations at once")
 
 TEST_CASE("removing yourself from the observer list in the Update method")
 {
-	CWeatherData wd;
+	CWeatherData wd(SensorType::External);
 	CRemoveDisplay removeDisplay(wd);
 	wd.RegisterObserver(removeDisplay, 1);
 	wd.SetMeasurements(5, 0.9, 764);
@@ -28,7 +28,7 @@ TEST_CASE("removing yourself from the observer list in the Update method")
 
 TEST_CASE("priority notification to observers")
 {
-	CWeatherData wd;
+	CWeatherData wd(SensorType::Internal);
 	std::stringstream stringStream;
 	ObserverWithPriorityOutput observerFirst(stringStream, "Hel");
 	ObserverWithPriorityOutput observerSecond(stringStream, "lo ");
