@@ -66,7 +66,7 @@ TEST_CASE("correct file encryption and decryption")
 	WHEN("read byte")
 	{
 		{
-			auto outStream = std::make_unique<CFileOutputStream>("data/output.txt");
+			auto outStream = std::make_unique<CFileOutputStream>("data/output.dat");
 			auto memoryEncryptyion = std::make_unique<CEncryptOutputStreamDecorator>(std::move(outStream), 3);
 			memoryEncryptyion = std::make_unique<CEncryptOutputStreamDecorator>(std::move(memoryEncryptyion), 100500);
 			memoryEncryptyion->WriteByte('a');
@@ -74,9 +74,9 @@ TEST_CASE("correct file encryption and decryption")
 			memoryEncryptyion->WriteByte('c');
 		}
 
-		CHECK_FALSE("abc" == GetDataFromFile("data/output.txt"));
+		CHECK_FALSE("abc" == GetDataFromFile("data/output.dat"));
 
-		auto inStream = std::make_unique<CFileInputStream>("data/output.txt");
+		auto inStream = std::make_unique<CFileInputStream>("data/output.dat");
 		auto memoryDecryption = std::make_unique<CDecryptInputStreamDecorator>(std::move(inStream), 3);
 		memoryDecryption = std::make_unique<CDecryptInputStreamDecorator>(std::move(memoryDecryption), 100500);
 
@@ -89,12 +89,12 @@ TEST_CASE("correct file encryption and decryption")
 	WHEN("read byte")
 	{
 		{
-			auto outStream = std::make_unique<CFileOutputStream>("data/output.txt");
+			auto outStream = std::make_unique<CFileOutputStream>("data/output.dat");
 			auto memoryEncryptyion = std::make_unique<CEncryptOutputStreamDecorator>(std::move(outStream), 5);
 				memoryEncryptyion->WriteBlock("@#0\n", 3);
 		}
 
-		auto inStream = std::make_unique<CFileInputStream>("data/output.txt");
+		auto inStream = std::make_unique<CFileInputStream>("data/output.dat");
 		auto memoryDecryption = std::make_unique<CDecryptInputStreamDecorator>(std::move(inStream), 5);
 		std::vector<char> answer(4);
 		std::vector<char> sample{ '@', '#', '0', '\n' };

@@ -29,8 +29,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="input.txt" />
-    <None Include="output.txt" />
+    <None Include="input.dat" />
+    <None Include="output.dat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

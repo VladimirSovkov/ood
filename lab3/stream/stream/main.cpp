@@ -12,6 +12,12 @@ const string DECRYPT_OPTION = "--decrypt";
 const string COMPRESS_OPTION = "--compress";
 const string DECOMPRESS_OPTION = "--decompress";
 
+struct Argument
+{
+	string name;
+	int key;
+};
+
 void CopyToFile(unique_ptr<IInputDataStream>& input, unique_ptr<IOutputDataStream>& output)
 {
 	while (!input->IsEOF())
@@ -21,6 +27,44 @@ void CopyToFile(unique_ptr<IInputDataStream>& input, unique_ptr<IOutputDataStrea
 	};
 }
 
+unique_ptr<IInputDataStream> DecorateInputStream(unique_ptr<IInputDataStream>&& input, vector<Argument> const& argsForInput)
+{
+	if (argsForInput.size() != 0)
+	{
+		for (auto it = argsForInput.crbegin(); it != argsForInput.crend(); it++)
+		{
+			if (it -> name == DECRYPT_OPTION)
+			{
+				input = make_unique<CDecryptInputStreamDecorator>(move(input), it->key);
+			}
+			else if (it->name == DECOMPRESS_OPTION)
+			{
+				input = make_unique<CDecompressInputStreamDecorator>(move(input));
+			}
+		}
+	}
+	return std::move(input);
+}
+
+unique_ptr<IOutputDataStream> DecorateOutputStream(unique_ptr<IOutputDataStream>&& output, vector<Argument> const& argsForOutput)
+{
+	if (argsForOutput.size() != 0)
+	{
+		for (size_t i = 0; i < argsForOutput.size(); i++)
+		{
+			if (argsForOutput[i].name == ENCRYPT_OPTION)
+			{
+				output = make_unique<CEncryptOutputStreamDecorator>(move(output), argsForOutput[i].key);
+			}
+			else if (argsForOutput[i].name == COMPRESS_OPTION)
+			{
+				output = make_unique<CCompressOutputStreamDecorator>(move(output));
+			}
+		}
+	}
+	return std::move(output);
+}
+
 void ÀrgumentHandling(vector<string> const& args)
 {
 	if (args.size() < 2)
@@ -28,35 +72,38 @@ void ÀrgumentHandling(vector<string> const& args)
 		throw logic_error("Not enough arguments");
 	}
 
-
 	unique_ptr<IInputDataStream> input = make_unique<CFileInputStream>(args[args.size() - 2]);
 	unique_ptr<IOutputDataStream> output = make_unique<CFileOutputStream>(args[args.size() - 1]);
 
-	for (auto i = 1; i < args.size() - 2; i++)
+	std::vector<Argument> argsForOutput;
+	std::vector<Argument> argsForIntput;
+		
+	for (size_t i = 1; i < args.size() - 2; i++)
 	{
 		if (args[i] == ENCRYPT_OPTION)	
 		{
-			uint32_t key = atoi(args[++i].c_str());
-			output = make_unique<CEncryptOutputStreamDecorator>(move(output), key);
+			argsForOutput.push_back({ args[i], atoi(args[++i].c_str()) });
 		}
 		else if (args[i] == DECRYPT_OPTION)
 		{
-			uint32_t key = atoi(args[++i].c_str());
-			input = make_unique<CDecryptInputStreamDecorator>(move(input), key);
+			argsForIntput.push_back({ args[i], atoi(args[++i].c_str()) });
 		}
 		else if (args[i] == COMPRESS_OPTION)
 		{
-			output = make_unique<CCompressOutputStreamDecorator>(move(output));
+			argsForOutput.push_back({ args[i], 0 });
 		}
 		else if (args[i] == DECOMPRESS_OPTION)
 		{
-			input = make_unique<CDecompressInputStreamDecorator>(move(input));
+			argsForIntput.push_back({ args[i], 0 });
 		}
 		else
 		{
 			throw logic_error("Unhandled option");
 		}
 	}
+
+	input = DecorateInputStream(std::move(input), argsForIntput);
+	output = DecorateOutputStream(std::move(output), argsForOutput);
 
 	CopyToFile(input, output);
 }

@@ -5,7 +5,7 @@ TEST_CASE("object creation CFileInputStream")
 {
 	WHEN("object correct creation")
 	{
-		CFileInputStream fileInputStream("data/input.txt");
+		CFileInputStream fileInputStream("data/input.dat");
 	}
 
 	WHEN("creation with non-existent file")
@@ -18,7 +18,7 @@ TEST_CASE("read byte from file into CFileInputStream")
 {
 	WHEN("correct byte reading")
 	{
-		CFileInputStream fileInputStream("data/input.txt");
+		CFileInputStream fileInputStream("data/input.dat");
 		auto byte = fileInputStream.ReadByte();
 		CHECK('v' == byte);
 
@@ -53,7 +53,7 @@ TEST_CASE("read a block in an object CFileInputStream")
 {
 	WHEN("correct block reading")
 	{
-		CFileInputStream fileInputStream("data/input.txt");
+		CFileInputStream fileInputStream("data/input.dat");
 		std::vector<char> buff(5);
 		auto size = fileInputStream.ReadBlock(buff.data(), 5);
 		std::vector<char> answer{ 'v', 'd', 'd', 'd', 'o' };
@@ -90,7 +90,7 @@ TEST_CASE("read a block in an object CFileInputStream")
 
 TEST_CASE("combining byte and block data read for file")
 {
-	CFileInputStream memory("data/input.txt");
+	CFileInputStream memory("data/input.dat");
 	CHECK('v' == memory.ReadByte());
 	std::vector<char> answer(2);
 	std::vector<char> sample{ 'd', 'd' };

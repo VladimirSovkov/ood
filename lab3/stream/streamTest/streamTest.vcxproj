@@ -176,8 +176,8 @@
     <None Include="data\emptyFile" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data\input.txt" />
-    <Text Include="data\output.txt" />
+    <Text Include="data\input.dat" />
+    <Text Include="data\output.dat" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stream\AddDecorator.h" />

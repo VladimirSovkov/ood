@@ -22,7 +22,4 @@ TEST_CASE("WriteBlock in a object CMemoryOutputStream")
 	std::vector<char> buff{'s', 't', 'r'};
 	fileOutputtream.WriteBlock(buff.data(), 2);
 	CHECK("st" == stream.str());
-
-	fileOutputtream.WriteBlock(buff.data(), 5);
-	CHECK("ststrýý" == stream.str());
 }

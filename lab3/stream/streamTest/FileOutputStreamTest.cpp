@@ -6,7 +6,7 @@ TEST_CASE("object creation CFileOutputStream")
 {
 	WHEN("object correct creation")
 	{
-		CFileOutputStream fileOutputtream("data/output.txt");
+		CFileOutputStream fileOutputtream("data/output.dat");
 	}
 
 	WHEN("creation with non-existent file")
@@ -17,18 +17,15 @@ TEST_CASE("object creation CFileOutputStream")
 
 TEST_CASE("WriteByte in an object CFileOutputStream")
 {
-	CFileOutputStream fileOutputStream("data/output.txt");
+	CFileOutputStream fileOutputStream("data/output.dat");
 	fileOutputStream.WriteByte('a');
-	CHECK("a" == GetDataFromFile("data/output.txt"));
+	CHECK("a" == GetDataFromFile("data/output.dat"));
 }
 
 TEST_CASE("writes a block of data to a file")
 {
-	CFileOutputStream fileOutputStream("data/output.txt");
+	CFileOutputStream fileOutputStream("data/output.dat");
 	std::vector<char> buff{ 's', 't', 'r' };
 	fileOutputStream.WriteBlock(buff.data(), 3);
-	CHECK("str" == GetDataFromFile("data/output.txt"));
-	
-	fileOutputStream.WriteBlock(buff.data(), 5);
-	CHECK("strstrýý" == GetDataFromFile("data/output.txt"));
+	CHECK("str" == GetDataFromFile("data/output.dat"));
 }
