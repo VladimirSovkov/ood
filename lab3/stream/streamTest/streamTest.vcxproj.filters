@@ -46,10 +46,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data\input.dat">
+    <Text Include="data\input.bin">
       <Filter>Файлы ресурсов</Filter>
     </Text>
-    <Text Include="data\output.dat">
+    <Text Include="data\output.bin">
       <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>

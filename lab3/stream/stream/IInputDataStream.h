@@ -41,11 +41,13 @@ public:
 
 	uint8_t ReadByte() override
 	{
+		char byte;
+		m_file.get(byte);
 		if (IsEOF())
 		{
 			throw std::ios_base::failure("Read when is eof");
 		}
-		return static_cast<uint8_t>(m_file.get());
+		return (uint8_t)byte;
 	}
 
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override

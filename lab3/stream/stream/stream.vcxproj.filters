@@ -37,10 +37,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="input.dat">
+    <Text Include="text.txt">
       <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="output.dat">
+    </Text>
+    <Text Include="output.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="input.txt">
       <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>

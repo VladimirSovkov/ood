@@ -70,11 +70,20 @@ public:
 
 		for (std::streamsize i = 0; i < size; ++i)
 		{
-			if (IsEOF())
+			try
+			{
+				*(buff + i) = ReadByte();
+			}
+			catch (const std::exception&)
 			{
 				return i;
 			}
-			*(buff + i) = ReadByte();
+
+			//if (IsEOF())
+			//{
+			//	return i;
+			//}
+			//*(buff + i) = ReadByte();
 		}
 		return size;
 	}

@@ -62,7 +62,7 @@ TEST_CASE("compress data into a file stream")
 	{
 		{
 			auto data—ompression =
-				std::make_unique<CFileOutputStream>("data/output.dat")
+				std::make_unique<CFileOutputStream>("data/output.bin")
 				<< AddFunc<CCompressOutputStreamDecorator>();
 			data—ompression->WriteByte('A');
 			data—ompression->WriteByte('2');
@@ -71,14 +71,14 @@ TEST_CASE("compress data into a file stream")
 			data—ompression->WriteByte('%');
 		}
 		std::string sample = "\1A\2" + std::string("2\2%");
-		CHECK(sample == GetDataFromFile("data/output.dat"));
+		CHECK(sample == GetDataFromFile("data/output.bin"));
 	}
 
 	WHEN("write block")
 	{
 		{
 			auto data—ompression =
-				std::make_unique<CFileOutputStream>("data/output.dat")
+				std::make_unique<CFileOutputStream>("data/output.bin")
 				<< AddFunc<CCompressOutputStreamDecorator>();
 			data—ompression->WriteBlock("v", 1);
 			data—ompression->WriteBlock("ddddd", 3);
@@ -86,14 +86,14 @@ TEST_CASE("compress data into a file stream")
 			data—ompression->WriteBlock("$$$", 3);
 		}
 		std::string sample = "\1v\3d\4" + std::string("0\3$");
-		CHECK(sample == GetDataFromFile("data/output.dat"));
+		CHECK(sample == GetDataFromFile("data/output.bin"));
 	}
 
 	WHEN("write block and write byte")
 	{
 		{
 			auto data—ompression =
-				std::make_unique<CFileOutputStream>("data/output.dat")
+				std::make_unique<CFileOutputStream>("data/output.bin")
 				<< AddFunc<CCompressOutputStreamDecorator>();
 			data—ompression->WriteByte('A');
 			data—ompression->WriteByte('b');
@@ -103,7 +103,7 @@ TEST_CASE("compress data into a file stream")
 		}
 
 		std::string sample = "\1A\2b\4" + std::string("0\3$");
-		CHECK(sample == GetDataFromFile("data/output.dat"));
+		CHECK(sample == GetDataFromFile("data/output.bin"));
 	}
 }
 
@@ -189,13 +189,13 @@ TEST_CASE("decompress data into a file stream")
 		{
 			{
 				auto compressFile =
-					std::make_unique<CFileOutputStream>("data/output.dat")
+					std::make_unique<CFileOutputStream>("data/output.bin")
 					<< AddFunc<CCompressOutputStreamDecorator>();
 				compressFile->WriteBlock("vddd0000", 8);
 			}
 
 			auto decompressFile =
-				std::make_unique<CFileInputStream>("data/output.dat")
+				std::make_unique<CFileInputStream>("data/output.bin")
 				<< AddFunc<CDecompressInputStreamDecorator>();
 			CHECK('v' == decompressFile->ReadByte());
 			CHECK('d' == decompressFile->ReadByte());
@@ -207,7 +207,6 @@ TEST_CASE("decompress data into a file stream")
 			auto decompressFile =
 				std::make_unique<CFileInputStream>("data/emptyFile")
 				<< AddFunc<CDecompressInputStreamDecorator>();
-			CHECK('\0' == decompressFile->ReadByte());
 			CHECK_THROWS_AS(decompressFile->ReadByte(), std::ios_base::failure);
 		}
 	}
@@ -218,13 +217,13 @@ TEST_CASE("decompress data into a file stream")
 		{
 			{
 				auto compressFile =
-					std::make_unique<CFileOutputStream>("data/output.dat")
+					std::make_unique<CFileOutputStream>("data/output.bin")
 					<< AddFunc<CCompressOutputStreamDecorator>();
 				compressFile->WriteBlock("vddd0000", 8);
 			}
 
 			auto decompressFile =
-				std::make_unique<CFileInputStream>("data/output.dat")
+				std::make_unique<CFileInputStream>("data/output.bin")
 				<< AddFunc<CDecompressInputStreamDecorator>();
 			std::vector<char> answer(5);
 			CHECK(5 == decompressFile->ReadBlock(answer.data(), 5));
@@ -238,8 +237,8 @@ TEST_CASE("decompress data into a file stream")
 				std::make_unique<CFileInputStream>("data/emptyFile")
 				<< AddFunc<CDecompressInputStreamDecorator>();
 			std::vector<char> answer(3);
-			CHECK(1 == decompressFile->ReadBlock(answer.data(), 3));
-			std::vector<char> sample{ '\0', '\0', '\0' };
+			CHECK(0 == decompressFile->ReadBlock(answer.data(), 3));
+			std::vector<char> sample(3);
 			CHECK(sample == answer);
 		}
 	}
@@ -256,7 +255,7 @@ TEST_CASE("decompress data into a file stream")
 
 		WHEN("the pointer has reached the end of the file")
 		{
-			decompressFile->ReadByte();
+			CHECK_THROWS(decompressFile->ReadByte());
 			CHECK(decompressFile->IsEOF());
 		}
 	}
@@ -289,12 +288,12 @@ TEST_CASE("data compression and decompression")
 		std::vector<char> vect(8);
 		{
 			auto abc =
-				std::make_unique<CFileOutputStream>("data/output.dat")
+				std::make_unique<CFileOutputStream>("data/output.bin")
 				<< AddFunc<CCompressOutputStreamDecorator>();
 			abc->WriteBlock("daabb", 8);
 		}
 
-		auto decompressFile = std::make_unique<CFileInputStream>("data/output.dat")
+		auto decompressFile = std::make_unique<CFileInputStream>("data/output.bin")
 			<< AddFunc<CDecompressInputStreamDecorator>();
 		std::vector<char> answer(5);
 		std::vector<char> sample{'d', 'a', 'a', 'b', 'b'};

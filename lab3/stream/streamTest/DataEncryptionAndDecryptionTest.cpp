@@ -66,7 +66,7 @@ TEST_CASE("correct file encryption and decryption")
 	WHEN("read byte")
 	{
 		{
-			auto outStream = std::make_unique<CFileOutputStream>("data/output.dat");
+			auto outStream = std::make_unique<CFileOutputStream>("data/output.bin");
 			auto memoryEncryptyion = std::make_unique<CEncryptOutputStreamDecorator>(std::move(outStream), 3);
 			memoryEncryptyion = std::make_unique<CEncryptOutputStreamDecorator>(std::move(memoryEncryptyion), 100500);
 			memoryEncryptyion->WriteByte('a');
@@ -74,9 +74,9 @@ TEST_CASE("correct file encryption and decryption")
 			memoryEncryptyion->WriteByte('c');
 		}
 
-		CHECK_FALSE("abc" == GetDataFromFile("data/output.dat"));
+		CHECK_FALSE("abc" == GetDataFromFile("data/output.bin"));
 
-		auto inStream = std::make_unique<CFileInputStream>("data/output.dat");
+		auto inStream = std::make_unique<CFileInputStream>("data/output.bin");
 		auto memoryDecryption = std::make_unique<CDecryptInputStreamDecorator>(std::move(inStream), 3);
 		memoryDecryption = std::make_unique<CDecryptInputStreamDecorator>(std::move(memoryDecryption), 100500);
 
@@ -86,27 +86,27 @@ TEST_CASE("correct file encryption and decryption")
 		CHECK('c' == memoryDecryption->ReadByte());
 	}
 
-	WHEN("read byte")
+	WHEN("read block")
 	{
 		{
-			auto outStream = std::make_unique<CFileOutputStream>("data/output.dat");
+			auto outStream = std::make_unique<CFileOutputStream>("data/output.bin");
 			auto memoryEncryptyion = std::make_unique<CEncryptOutputStreamDecorator>(std::move(outStream), 5);
-				memoryEncryptyion->WriteBlock("@#0\n", 3);
+			memoryEncryptyion->WriteBlock("abc", 3);
 		}
 
-		auto inStream = std::make_unique<CFileInputStream>("data/output.dat");
+		auto inStream = std::make_unique<CFileInputStream>("data/output.bin");
 		auto memoryDecryption = std::make_unique<CDecryptInputStreamDecorator>(std::move(inStream), 5);
-		std::vector<char> answer(4);
-		std::vector<char> sample{ '@', '#', '0', '\n' };
-		memoryDecryption->ReadBlock(answer.data(), 4);
+		std::vector<char> answer(3);
+		std::vector<char> sample{ 'a', 'b', 'c' };
+		memoryDecryption->ReadBlock(answer.data(), 3);
+		CHECK(sample == answer);
 	}
 
 	WHEN("check end of data")
 	{
 		auto inStream = std::make_unique<CFileInputStream>("data/emptyFile");
 		auto memoryDecryption = std::make_unique<CDecryptInputStreamDecorator>(std::move(inStream), 0);
-		CHECK_FALSE(memoryDecryption->IsEOF());
-		memoryDecryption->ReadByte();
+		CHECK_THROWS(memoryDecryption->ReadByte());
 		CHECK(memoryDecryption->IsEOF());
 	}
 }

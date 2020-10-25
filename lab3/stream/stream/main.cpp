@@ -22,8 +22,14 @@ void CopyToFile(unique_ptr<IInputDataStream>& input, unique_ptr<IOutputDataStrea
 {
 	while (!input->IsEOF())
 	{
-		uint8_t ch = input->ReadByte();
-		output->WriteByte(ch);
+		try
+		{
+			uint8_t ch = input->ReadByte();
+			output->WriteByte(ch);
+		}
+		catch (const std::exception&)
+		{
+		}
 	};
 }
 
