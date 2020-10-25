@@ -39,11 +39,11 @@ void CCanvas::DrawLine(const Point& from, const Point& to)
 {
 	glLineWidth(2);
 	glBegin(GL_LINES);
+	glEnable(GL_LINE_SMOOTH);
 	glColor3f(m_color.red, m_color.green, m_color.blue);
 	glVertex2d(from.x, from.y);
 	glVertex2d(to.x, to.y);
 	glEnd();
-	glEnable(GL_LINE_SMOOTH);
 }
 
 void CCanvas::DrawEllipse(const Point& center, double width, double height)

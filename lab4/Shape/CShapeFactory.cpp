@@ -63,7 +63,7 @@ std::shared_ptr<CTriangle> MakeTriangle(std::istream& argsStream)
 	Point vertex2 = { GetParam<double>(argsStream), GetParam<double>(argsStream) };
 	Point vertex3 = { GetParam<double>(argsStream), GetParam<double>(argsStream) };
 
-	return std::make_unique<CTriangle>(color, vertex1, vertex2, vertex3);
+	return std::make_shared<CTriangle>(color, vertex1, vertex2, vertex3);
 }
 
 std::shared_ptr<CRectangle> MakeRectangle(std::istream& argsStream)
@@ -72,7 +72,7 @@ std::shared_ptr<CRectangle> MakeRectangle(std::istream& argsStream)
 	Point leftTop = { GetParam<double>(argsStream), GetParam<double>(argsStream) };
 	Point rightBottom = { GetParam<double>(argsStream), GetParam<double>(argsStream) };
 
-	return std::make_unique<CRectangle>(color, leftTop, rightBottom);
+	return std::make_shared<CRectangle>(color, leftTop, rightBottom);
 }
 
 std::shared_ptr<CRegularPolygon> MakePolygon(std::istream& argsStream)
@@ -82,7 +82,7 @@ std::shared_ptr<CRegularPolygon> MakePolygon(std::istream& argsStream)
 	Point center = { GetParam<double>(argsStream), GetParam<double>(argsStream) };
 	double radius = GetParam<double>(argsStream);
 
-	return std::make_unique<CRegularPolygon>(color, vertexCount, center, radius);
+	return std::make_shared<CRegularPolygon>(color, vertexCount, center, radius);
 }
 
 std::shared_ptr<CEllipse> MakeEllipse(std::istream& argsStream)
@@ -92,7 +92,7 @@ std::shared_ptr<CEllipse> MakeEllipse(std::istream& argsStream)
 	double width = GetParam<double>(argsStream);
 	double height = GetParam<double>(argsStream);
 
-	return std::make_unique<CEllipse>(color, leftTop, width, height);
+	return std::make_shared<CEllipse>(color, leftTop, width, height);
 }
 
 CShapeFactory::CShapeFactory()

@@ -27,10 +27,11 @@ int main()
 			return 1;
 		}
 		glfwMakeContextCurrent(window);
+		glClearColor(255, 255, 255, 0);
+
 		while (!glfwWindowShouldClose(window))
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
-			glClearColor(255, 255, 255, 0);
 			painter.DrawPicture(draft, canvas);
 			glfwSwapBuffers(window);
 			glfwPollEvents();
