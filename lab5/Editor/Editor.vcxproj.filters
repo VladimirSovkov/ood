@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков\DocumentItem">
+      <UniqueIdentifier>{b697f0ea-9cd5-4b73-b037-46dd459bdc7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Command">
+      <UniqueIdentifier>{d96ad55c-530c-483b-b183-6cb6c4c046f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Document">
+      <UniqueIdentifier>{0a30f26d-8b2b-4b4a-b5f0-aa798166a854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\DocumentItem\Image">
+      <UniqueIdentifier>{af8cadf3-3f04-4d56-bbb5-7102c25b1556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\DocumentItem\Paragraph">
+      <UniqueIdentifier>{eb328d33-3def-45e4-a656-cdf5c2f5c8ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Command">
+      <UniqueIdentifier>{4a0bc1b8-08eb-4442-adff-e77c5cdb3d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Document">
+      <UniqueIdentifier>{d7acf633-efd4-4659-b05a-f69eff6f409d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DocumentItem">
+      <UniqueIdentifier>{5ae69c3b-9875-478c-b8c3-4e4ee7bcb852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DocumentItem\Image">
+      <UniqueIdentifier>{84187b32-d23e-45e5-8c07-17ac3b40f478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DocumentItem\Paragraph">
+      <UniqueIdentifier>{25cccf88-ac1d-46bd-811c-7f94854870bd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CHistory.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CMenu.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditor.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CAbstractCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CDeleteDocumentItemCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CInsertDocumentItemCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CReplaceTextCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CResizeImageCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CDocument.cpp">
+      <Filter>Исходные файлы\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="CImage.cpp">
+      <Filter>Исходные файлы\DocumentItem\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="CParagraph.cpp">
+      <Filter>Исходные файлы\DocumentItem\Paragraph</Filter>
+    </ClCompile>
+    <ClCompile Include="CConstDocumentItem.cpp">
+      <Filter>Исходные файлы\DocumentItem</Filter>
+    </ClCompile>
+    <ClCompile Include="CDocumentItem.cpp">
+      <Filter>Исходные файлы\DocumentItem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Path.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CImage.h">
+      <Filter>Файлы заголовков\DocumentItem\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="IImage.h">
+      <Filter>Файлы заголовков\DocumentItem\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="CConstDocumentItem.h">
+      <Filter>Файлы заголовков\DocumentItem</Filter>
+    </ClInclude>
+    <ClInclude Include="CDocumentItem.h">
+      <Filter>Файлы заголовков\DocumentItem</Filter>
+    </ClInclude>
+    <ClInclude Include="CAbstractCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="ICommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CDeleteDocumentItemCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CInsertDocumentItemCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CReplaceTextCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CResizeImageCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="IDocument.h">
+      <Filter>Файлы заголовков\Document</Filter>
+    </ClInclude>
+    <ClInclude Include="CDocument.h">
+      <Filter>Файлы заголовков\Document</Filter>
+    </ClInclude>
+    <ClInclude Include="CHistory.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CParagraph.h">
+      <Filter>Файлы заголовков\DocumentItem\Paragraph</Filter>
+    </ClInclude>
+    <ClInclude Include="IParagraph.h">
+      <Filter>Файлы заголовков\DocumentItem\Paragraph</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandFunc.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CMenu.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

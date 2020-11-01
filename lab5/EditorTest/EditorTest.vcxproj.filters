@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Editor">
+      <UniqueIdentifier>{9a935743-07a9-4bd2-a825-3a8dcf74cea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Tests">
+      <UniqueIdentifier>{cd07efb9-240e-4811-b095-508fb5ef8ff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Tests\Command">
+      <UniqueIdentifier>{885babb7-23d5-47fb-b04b-b7bc6feab5da}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CParagraphTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="HistoryTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="CDocumentTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="CMenuTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CAbstractCommand.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CConstDocumentItem.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CDeleteDocumentItemCommand.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CDocument.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CDocumentItem.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CEditor.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CHistory.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CImage.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CInsertDocumentItemCommand.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CMenu.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CParagraph.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CReplaceTextCommand.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Editor\CResizeImageCommand.cpp">
+      <Filter>Исходные файлы\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="CDeleteDocumentItemCommandTest.cpp">
+      <Filter>Исходные файлы\Tests\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CInsertDocumentItemCommandTest.cpp">
+      <Filter>Исходные файлы\Tests\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CReplaceTextCommandText.cpp">
+      <Filter>Исходные файлы\Tests\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CResizeImageCommandTest.cpp">
+      <Filter>Исходные файлы\Tests\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CImageTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Editor\CAbstractCommand.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CConstDocumentItem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CDeleteDocumentItemCommand.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CDocument.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CDocumentItem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CEditor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CHistory.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CImage.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CInsertDocumentItemCommand.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CMenu.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CommandFunc.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CParagraph.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CReplaceTextCommand.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\CResizeImageCommand.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\ICommand.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\IDocument.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\IImage.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\IParagraph.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Editor\Path.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
