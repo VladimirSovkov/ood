@@ -29,13 +29,6 @@ void CompareEditorResponseWithExpectedResult(std::string const& command, std::st
 	CHECK(INSTRUCTION_TEXT + expectedResult == oss.str());
 }
 
-//std::istringstream iss("InsertParagraph end text test");
-//std::ostringstream oss;
-//CEditor editor(iss, oss);
-//editor.Run();
-//std::string ss = oss.str();
-//int stop = 0;
-
 TEST_CASE("InsertParagraph inserts a paragraph with text at the document position")
 {
 	SECTION("Insert paragraph at the end")
@@ -154,10 +147,10 @@ TEST_CASE("ResizeImage: Resizes the image in the document")
 		CompareEditorResponseWithExpectedResult("InsertImage end 800 600 image/img.png\nResizeImage 2 1920 1080", ">invalid vector subscript\n>");
 	}
 
-	//SECTION("incorrect dimensions")
-	//{
-	//	CompareEditorResponseWithExpectedResult("InsertImage end 800 600 image/img.png\nResizeImage 0 0 0", ">>");
-	//}
+	SECTION("incorrect dimensions")
+	{
+		CompareEditorResponseWithExpectedResult("InsertImage end 800 600 image/img.png\nResizeImage 0 0 0", ">image size cannot be negative\n>");
+	}
 }
 
 TEST_CASE("DeleteItem: deletes the item at the specified position")

@@ -23,3 +23,12 @@ TEST_CASE("resize images with Resize Image Command")
 		CHECK(600 == height);
 	}
 }
+
+TEST_CASE("incorrect dimensions for resizing")
+{
+	int width = 800;
+	int height = 600;
+	int newWidth = 0;
+	int newHeight = 1080;
+	CHECK_THROWS(CResizeImageCommand (width, height, newWidth, newHeight));
+}
