@@ -35,8 +35,7 @@ namespace shape_drawing_lib
 			canvas.MoveTo(m_p1.x, m_p1.y);
 			canvas.LineTo(m_p2.x, m_p2.y);
 			canvas.LineTo(m_p3.x, m_p3.y);
-			canvas.MoveTo(m_p2.x, m_p2.y);
-			canvas.LineTo(m_p3.x, m_p3.y);
+			canvas.LineTo(m_p1.x, m_p1.y);
 		}
 	private:
 		Point m_p1;
@@ -61,13 +60,9 @@ namespace shape_drawing_lib
 			canvas.SetColor(m_color);
 			canvas.MoveTo(m_leftTop.x, m_leftTop.y);
 			canvas.LineTo(m_leftTop.x + m_width, m_leftTop.y);
+			canvas.LineTo(m_leftTop.x + m_width, m_leftTop.y - m_height);
 			canvas.LineTo(m_leftTop.x, m_leftTop.y - m_height);
-			Point bottom_right;
-			bottom_right.x = m_leftTop.x + m_width;
-			bottom_right.y = m_leftTop.y - m_height;
-			canvas.MoveTo(bottom_right.x, bottom_right.y);
-			canvas.LineTo(bottom_right.x - m_width, bottom_right.y);
-			canvas.LineTo(bottom_right.x, bottom_right.y + m_height);
+			canvas.LineTo(m_leftTop.x, m_leftTop.y);
 		}
 	private:
 		Point m_leftTop;

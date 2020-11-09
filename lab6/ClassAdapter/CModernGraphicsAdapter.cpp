@@ -24,4 +24,5 @@ void CModernGraphicsAdapter::LineTo(int x, int y)
 {
 	modern_graphics_lib::CPoint endPoint(x, y);
 	DrawLine(m_point, endPoint, m_color);
+	MoveTo(x, y);
 }
